@@ -1,0 +1,17 @@
+#SPDX-License-Identifier: MIT-0
+---
+# absent tasks file for dbrennand.beszel
+- name: Absent | Stop Beszel binary agent systemd service
+  ansible.builtin.service:
+    name: beszel-agent
+    state: stopped
+
+- name: Absent | Remove Beszel binary agent systemd service
+  ansible.builtin.file:
+    path: /etc/systemd/system/beszel-agent.service
+    state: absent
+
+- name: Absent | Remove Beszel binary agent
+  ansible.builtin.file:
+    path: "{{ beszel_install_dir }}/beszel-agent"
+    state: absent
