@@ -1,0 +1,30 @@
+[Unit]
+Description=Beszel Agent Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart={{ beszel_install_dir }}/beszel-agent {{ beszel_args | trim }}
+Environment="PORT={{ beszel_port }}"
+Environment="KEY={{ beszel_public_key }}"
+Restart=on-failure
+RestartSec=5
+StateDirectory=beszel-agent
+
+# Security/sandboxing settings
+KeyringMode=private
+LockPersonality=yes
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectClock=yes
+ProtectHome=read-only
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelTunables=yes
+ProtectSystem=strict
+RemoveIPC=yes
+RestrictSUIDSGID=true
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target
