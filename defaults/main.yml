@@ -15,5 +15,5 @@ beszel_install_dir: /usr/local/bin/
 beszel_args: ""
 # Enable the Beszel binary agent systemd service on boot
 beszel_service_enabled: true
-# Start the Beszel binary agent systemd service
+# State of the Beszel binary agent systemd service
 beszel_service_state: started
