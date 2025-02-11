@@ -20,10 +20,26 @@
         service: beszel
         command: /beszel superuser upsert molecule@example.com molecule
 
-    - name: Restart Beszel Hub Docker Compose Stack
-      community.docker.docker_compose_v2:
-        project_src: ../
-        state: restarted
+    - name: Get Beszel Hub PocketBase API token
+      register: resp
+      ansible.builtin.uri:
+        # https://github.com/vaphes/pocketbase/blob/master/pocketbase/services/admin_service.py#L75
+        url: http://localhost:8090/api/collections/_superusers/auth-with-password
+        method: POST
+        headers:
+          Authorization: ""
+        body:
+          identity: molecule@example.com
+          password: molecule
+        body_format: json
+
+    - name: Get Beszel Public Key
+      register: test
+      ansible.builtin.uri:
+        url: http://localhost:8090/api/beszel/getkey
+        method: GET
+        headers:
+          Authorization: "{{ resp.json.token }}"
 
     - name: Create container
       community.docker.docker_container:
