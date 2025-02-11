@@ -7,6 +7,9 @@ _beszel_states:
   - absent
 # State of the Beszel binary agent installation
 beszel_state: present
+# Version of the Beszel binary agent to install
+# Can be a specific version from GitHub (e.g., v0.9.1)
+beszel_version: latest
 # Port for the Beszel binary agent to listen on
 beszel_port: 45876
 # Directory to install the Beszel binary agent into
