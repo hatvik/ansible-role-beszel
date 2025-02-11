@@ -3,6 +3,7 @@
 - name: Present | Assert | beszel_public_key is set
   ansible.builtin.assert:
     that: beszel_public_key != ""
+    fail_msg: Provide a public key to be used by the Beszel binary agent.
 
 - name: Present | Determine Beszel binary agent architecture
   ansible.builtin.set_fact:
