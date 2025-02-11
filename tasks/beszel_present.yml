@@ -1,4 +1,3 @@
-#SPDX-License-Identifier: MIT-0
 ---
 # present tasks file for dbrennand.beszel
 - name: Present | Assert | beszel_public_key is set
@@ -20,7 +19,7 @@
 
 - name: Present | Download Beszel binary agent tarball
   ansible.builtin.get_url:
-    url: "https://github.com/henrygd/beszel/releases/{{ beszel_version }}/download/beszel-agent_{{ ansible_os_family | lower }}_{{ beszel_architecture }}.tar.gz"
+    url: "https://github.com/henrygd/beszel/releases/{{ beszel_version }}/download/beszel-agent_{{ ansible_os_family | lower }}_{{ beszel_architecture }}.tar.gz" # noqa yaml[line-length]
     dest: /tmp/beszel-agent.tar.gz
     mode: u=rw,g=,o=
 
