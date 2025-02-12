@@ -17,6 +17,7 @@
     - name: Stop Beszel Hub Docker Compose Stack
       community.docker.docker_compose_v2:
         project_src: ../
+        remove_volumes: true
         state: absent
 
     - name: Remove dynamic inventory file

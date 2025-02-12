@@ -4,6 +4,8 @@ services:
     image: docker.io/henrygd/beszel:0.9.1
     container_name: beszel
     restart: unless-stopped
+    networks:
+      - beszel
     ports:
       - 8090:8090
     volumes:
@@ -11,3 +13,6 @@ services:
 
 volumes:
   beszel_data:
+
+networks:
+  beszel:

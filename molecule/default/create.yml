@@ -14,14 +14,17 @@
         project_src: ../
         state: present
 
-    - name: Create Beszel Hub Superuser
-      community.docker.docker_compose_v2_exec:
-        project_src: ../
-        service: beszel
-        command: /beszel superuser upsert molecule@example.com molecule
+    - name: Create the initial Beszel Hub user
+      ansible.builtin.uri:
+        url: http://localhost:8090/api/beszel/create-user
+        method: POST
+        body:
+          email: molecule@example.com
+          password: molecule
+        body_format: json
 
     - name: Get Beszel Hub PocketBase API token
-      register: resp
+      register: beszel_hub_api_token_resp
       ansible.builtin.uri:
         # https://github.com/vaphes/pocketbase/blob/master/pocketbase/services/admin_service.py#L75
         url: http://localhost:8090/api/collections/_superusers/auth-with-password
@@ -33,13 +36,28 @@
           password: molecule
         body_format: json
 
+    - name: Get Beszel Hub user IDs
+      register: beszel_hub_user_resp
+      ansible.builtin.uri:
+        url: http://localhost:8090/api/collections/users/records
+        method: GET
+        headers:
+          Authorization: "{{ beszel_hub_api_token_resp.json.token }}"
+
+    - name: Set beszel_hub_user_id
+      ansible.builtin.set_fact:
+        beszel_hub_user_id: "{{ beszel_hub_user_resp.json | community.general.json_query('items[0].id') }}"
+
+    - debug:
+        var: beszel_hub_user_id
+
     - name: Get Beszel Public Key
-      register: beszel_public_key_resp
+      register: beszel_hub_public_key_resp
       ansible.builtin.uri:
         url: http://localhost:8090/api/beszel/getkey
         method: GET
         headers:
-          Authorization: "{{ resp.json.token }}"
+          Authorization: "{{ beszel_hub_api_token_resp.json.token }}"
 
     - name: Create container
       community.docker.docker_container:
@@ -50,6 +68,8 @@
         volumes: "{{ item.volumes }}"
         cgroupns_mode: "{{ item.cgroupns_mode }}"
         privileged: "{{ item.privileged }}"
+        networks: "{{ item.networks }}"
+        expose: "{{ item.expose }}"
         state: started
       register: result
       loop: "{{ molecule_yml.platforms }}"
@@ -69,7 +89,9 @@
             children:
               molecule:
                 vars:
-                  beszel_public_key: "{{ beszel_public_key_resp.json.key }}"
+                  beszel_public_key: "{{ beszel_hub_public_key_resp.json.key }}"
+                  beszel_hub_api_token: "{{ beszel_hub_api_token_resp.json.token }}"
+                  beszel_hub_user_id: "{{ beszel_hub_user_id }}"
                 hosts:
                   "{{ item.name }}":
                     ansible_connection: community.docker.docker
