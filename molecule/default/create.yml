@@ -48,9 +48,6 @@
       ansible.builtin.set_fact:
         beszel_hub_user_id: "{{ beszel_hub_user_resp.json | community.general.json_query('items[0].id') }}"
 
-    - debug:
-        var: beszel_hub_user_id
-
     - name: Get Beszel Public Key
       register: beszel_hub_public_key_resp
       ansible.builtin.uri:
