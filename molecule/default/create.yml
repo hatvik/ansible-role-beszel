@@ -34,7 +34,7 @@
         body_format: json
 
     - name: Get Beszel Public Key
-      register: test
+      register: beszel_public_key_resp
       ansible.builtin.uri:
         url: http://localhost:8090/api/beszel/getkey
         method: GET
@@ -48,6 +48,8 @@
         command: "{{ item.command }}"
         tmpfs: "{{ item.tmpfs }}"
         volumes: "{{ item.volumes }}"
+        cgroupns_mode: "{{ item.cgroupns_mode }}"
+        privileged: "{{ item.privileged }}"
         state: started
       register: result
       loop: "{{ molecule_yml.platforms }}"
@@ -66,6 +68,8 @@
           all:
             children:
               molecule:
+                vars:
+                  beszel_public_key: "{{ beszel_public_key_resp.json.key }}"
                 hosts:
                   "{{ item.name }}":
                     ansible_connection: community.docker.docker

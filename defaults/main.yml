@@ -11,6 +11,8 @@ beszel_state: present
 beszel_version: latest
 # Port for the Beszel binary agent to listen on
 beszel_port: 45876
+# Public key used to authenticate the Beszel binary agent to the Hub
+beszel_public_key: ""
 # Directory to install the Beszel binary agent into
 beszel_install_dir: /usr/local/bin
 # Custom arguments for the Beszel binary agent
