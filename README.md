@@ -15,7 +15,6 @@ beszel_public_key: ""
 Public key used to authenticate the Beszel binary agent to the Hub.
 
 ```yaml
-# State of the Beszel binary agent installation
 beszel_state: present
 ```
 
