@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: molecule
+  gather_facts: true
+  roles:
+    - role: dbrennand.beszel
+      vars:
+        beszel_state: absent
