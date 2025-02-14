@@ -1,11 +1,11 @@
 ---
 # present tasks file for dbrennand.beszel
-- name: Present | Assert | beszel_public_key is set
+- name: beszel_present | Assert beszel_public_key is set
   ansible.builtin.assert:
     that: beszel_public_key != ""
     fail_msg: Provide a public key to be used by the Beszel binary agent.
 
-- name: Present | Determine Beszel binary agent architecture
+- name: beszel_present | Determine Beszel binary agent architecture
   ansible.builtin.set_fact:
     beszel_architecture: >-
       {% if ansible_architecture == 'x86_64' %}
@@ -18,32 +18,32 @@
         arm
       {% endif %}
 
-- name: Present | Download Beszel binary agent tarball
+- name: beszel_present | Download Beszel binary agent tarball
   ansible.builtin.get_url:
     url: "https://github.com/henrygd/beszel/releases/{{ beszel_version }}/download/beszel-agent_linux_{{ beszel_architecture | trim }}.tar.gz" # noqa yaml[line-length]
     dest: /tmp/beszel-agent.tar.gz
     mode: u=rw,g=,o=
 
-- name: Present | Extract Beszel binary agent tarball
+- name: beszel_present | Extract Beszel binary agent tarball
   ansible.builtin.unarchive:
     src: /tmp/beszel-agent.tar.gz
     dest: "{{ beszel_install_dir }}"
     mode: u=rwx,g=rx,o=rx
     remote_src: true
 
-- name: Present | Clean up Beszel binary agent tarball
+- name: beszel_present | Clean up Beszel binary agent tarball
   ansible.builtin.file:
     path: /tmp/beszel-agent.tar.gz
     state: absent
 
-- name: Present | Install Beszel binary agent systemd service
+- name: beszel_present | Install Beszel binary agent systemd service
   notify: Reload systemd configuration
   ansible.builtin.template:
     src: beszel-agent.service.j2
     dest: /etc/systemd/system/beszel-agent.service
     mode: u=rw,g=r,o=r
 
-- name: Present | Start the Beszel binary agent systemd service
+- name: beszel_present | Start the Beszel binary agent systemd service
   ansible.builtin.service:
     name: beszel-agent
     enabled: "{{ beszel_service_enabled }}"
