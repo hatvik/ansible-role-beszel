@@ -31,11 +31,6 @@
     mode: u=rwx,g=rx,o=rx
     remote_src: true
 
-- name: beszel_present | Clean up Beszel binary agent tarball
-  ansible.builtin.file:
-    path: /tmp/beszel-agent.tar.gz
-    state: absent
-
 - name: beszel_present | Install Beszel binary agent systemd service
   notify: Reload systemd configuration
   ansible.builtin.template:
