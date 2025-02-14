@@ -5,7 +5,7 @@
   roles:
     - role: dbrennand.beszel
   post_tasks:
-    - name: Add Beszel binary agent to Beszel Hub
+    - name: converge | Add Beszel binary agent to Beszel Hub
       delegate_to: localhost
       ansible.builtin.uri:
         url: http://localhost:8090/api/collections/systems/records
