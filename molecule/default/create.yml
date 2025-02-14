@@ -9,12 +9,12 @@
         children:
           molecule: {}
   tasks:
-    - name: create | Start Beszel Hub Docker Compose Stack
+    - name: Create | Start Beszel Hub Docker Compose Stack
       community.docker.docker_compose_v2:
         project_src: ../
         state: present
 
-    - name: create | Create the initial Beszel Hub user
+    - name: Create | Create the initial Beszel Hub user
       ansible.builtin.uri:
         url: http://localhost:8090/api/beszel/create-user
         method: POST
@@ -23,7 +23,7 @@
           password: molecule
         body_format: json
 
-    - name: create | Get Beszel Hub PocketBase API token
+    - name: Create | Get Beszel Hub PocketBase API token
       register: beszel_hub_api_token_resp
       ansible.builtin.uri:
         # https://github.com/vaphes/pocketbase/blob/master/pocketbase/services/admin_service.py#L75
@@ -36,7 +36,7 @@
           password: molecule
         body_format: json
 
-    - name: create | Get Beszel Hub user IDs
+    - name: Create | Get Beszel Hub user IDs
       register: beszel_hub_user_resp
       ansible.builtin.uri:
         url: http://localhost:8090/api/collections/users/records
@@ -44,11 +44,11 @@
         headers:
           Authorization: "{{ beszel_hub_api_token_resp.json.token }}"
 
-    - name: create | Set beszel_hub_user_id
+    - name: Create | Set beszel_hub_user_id
       ansible.builtin.set_fact:
-        beszel_hub_user_id: "{{ beszel_hub_user_resp.json | community.general.json_query('items[0].id') }}"
+        beszel_hub_user_id: "{{ beszel_hub_user_resp.json | community.general.json_query('items[0].id') }}" # noqa jinja[invalid]
 
-    - name: create | Get Beszel Public Key
+    - name: Create | Get Beszel Public Key
       register: beszel_hub_public_key_resp
       ansible.builtin.uri:
         url: http://localhost:8090/api/beszel/getkey
@@ -56,7 +56,7 @@
         headers:
           Authorization: "{{ beszel_hub_api_token_resp.json.token }}"
 
-    - name: create | Create container
+    - name: Create | Create container
       community.docker.docker_container:
         name: "{{ item.name }}"
         image: "{{ item.image }}"
@@ -71,7 +71,7 @@
       register: result
       loop: "{{ molecule_yml.platforms }}"
 
-    - name: create | Fail if container is not running
+    - name: Create | Fail if container is not running
       when: >
         item.container.State.ExitCode != 0 or
         not item.container.State.Running
@@ -79,7 +79,7 @@
         msg: "{{ item.container.Name }} failed to start."
       loop: "{{ result.results }}"
 
-    - name: create | Add container to molecule_inventory
+    - name: Create | Add container to molecule_inventory
       vars:
         inventory_partial_yaml: |
           all:
@@ -99,17 +99,17 @@
       loop_control:
         label: "{{ item.name }}"
 
-    - name: create | Dump molecule_inventory
+    - name: Create | Dump molecule_inventory
       ansible.builtin.copy:
         content: |
           {{ molecule_inventory | to_yaml }}
         dest: "{{ molecule_ephemeral_directory }}/inventory/molecule_inventory.yml"
         mode: "0600"
 
-    - name: create | Force inventory refresh
+    - name: Create | Force inventory refresh
       ansible.builtin.meta: refresh_inventory
 
-    - name: create | Fail if molecule group is missing
+    - name: Create | Fail if molecule group is missing
       run_once: true # noqa: run-once[task]
       ansible.builtin.assert:
         that: "'molecule' in groups"

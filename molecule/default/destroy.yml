@@ -3,7 +3,7 @@
   hosts: molecule
   gather_facts: false
   tasks:
-    - name: destroy | Stop and remove container
+    - name: Destroy | Stop and remove container
       delegate_to: localhost
       community.docker.docker_container:
         name: "{{ inventory_hostname }}"
@@ -14,13 +14,13 @@
   hosts: localhost
   gather_facts: false
   tasks:
-    - name: destroy | Stop Beszel Hub Docker Compose Stack
+    - name: Destroy | Stop Beszel Hub Docker Compose Stack
       community.docker.docker_compose_v2:
         project_src: ../
         remove_volumes: true
         state: absent
 
-    - name: destroy | Remove dynamic inventory file
+    - name: Destroy | Remove dynamic inventory file
       ansible.builtin.file:
         path: "{{ molecule_ephemeral_directory }}/inventory/molecule_inventory.yml"
         state: absent
