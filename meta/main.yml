@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: beszel
   author: dbrennand
-  description: Ansible role to install and configure a Beszel agent.
+  description: Ansible role to install and configure a Beszel binary agent.
   company: dbrennand
 
   # If the issue tracker for your role is not on github, uncomment the
