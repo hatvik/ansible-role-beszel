@@ -1,5 +1,8 @@
 # dbrennand.beszel
 
+![Ansible-Lint](https://github.com/dbrennand/ansible-role-beszel/actions/workflows/ansible-lint.yml/badge.svg)
+![Release](https://github.com/dbrennand/ansible-role-beszel/actions/workflows/release.yml/badge.svg)
+
 Ansible role to install and configure a [Beszel](https://github.com/henrygd/beszel) binary agent.
 
 ## Requirements
