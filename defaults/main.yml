@@ -1,0 +1,23 @@
+---
+# defaults file for dbrennand.beszel
+# Allowed beszel_state values
+_beszel_states:
+  - present
+  - absent
+# State of the Beszel binary agent installation
+beszel_state: present
+# Version of the Beszel binary agent to install
+# Can be a specific version from GitHub (e.g., v0.9.1)
+beszel_version: latest
+# Port for the Beszel binary agent to listen on
+beszel_port: 45876
+# Public key used to authenticate the Beszel binary agent to the Hub
+beszel_public_key: ""
+# Directory to install the Beszel binary agent into
+beszel_install_dir: /usr/local/bin
+# Custom arguments for the Beszel binary agent
+beszel_args: ""
+# Enable the Beszel binary agent systemd service on boot
+beszel_service_enabled: true
+# State of the Beszel binary agent systemd service
+beszel_service_state: started

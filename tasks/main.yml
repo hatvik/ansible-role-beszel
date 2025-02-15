@@ -1,0 +1,9 @@
+---
+# tasks file for dbrennand.beszel
+- name: Assert | beszel_state
+  ansible.builtin.assert:
+    that: beszel_state in _beszel_states
+
+- name: Include state tasks
+  ansible.builtin.import_tasks:
+    file: "beszel_{{ beszel_state }}.yml"

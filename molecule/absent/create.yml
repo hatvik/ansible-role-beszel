@@ -1,0 +1,8 @@
+---
+- name: Import default scenario create.yml playbook
+  ansible.builtin.import_playbook: ../default/create.yml
+
+- name: Create | Invoke dbrennand.beszel role with state present
+  hosts: molecule
+  roles:
+    - role: dbrennand.beszel
