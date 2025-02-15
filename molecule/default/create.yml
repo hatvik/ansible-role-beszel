@@ -20,7 +20,7 @@
 
     - name: Create | Create the initial Beszel Hub user
       ansible.builtin.uri:
-        url: http://localhost:8090/api/beszel/create-user
+        url: "http://{{ beszel_hub_address | default('localhost') }}:8090/api/beszel/create-user"
         method: POST
         body:
           email: molecule@example.com
@@ -31,7 +31,7 @@
       register: beszel_hub_api_token_resp
       ansible.builtin.uri:
         # https://github.com/vaphes/pocketbase/blob/master/pocketbase/services/admin_service.py#L75
-        url: http://localhost:8090/api/collections/_superusers/auth-with-password
+        url: "http://{{ beszel_hub_address | default('localhost') }}:8090/api/collections/_superusers/auth-with-password"
         method: POST
         headers:
           Authorization: ""
@@ -43,7 +43,7 @@
     - name: Create | Get Beszel Hub user IDs
       register: beszel_hub_user_resp
       ansible.builtin.uri:
-        url: http://localhost:8090/api/collections/users/records
+        url: "http://{{ beszel_hub_address | default('localhost') }}:8090/api/collections/users/records"
         method: GET
         headers:
           Authorization: "{{ beszel_hub_api_token_resp.json.token }}"
@@ -55,7 +55,7 @@
     - name: Create | Get Beszel Public Key
       register: beszel_hub_public_key_resp
       ansible.builtin.uri:
-        url: http://localhost:8090/api/beszel/getkey
+        url: "http://{{ beszel_hub_address | default('localhost') }}:8090/api/beszel/getkey"
         method: GET
         headers:
           Authorization: "{{ beszel_hub_api_token_resp.json.token }}"
@@ -90,6 +90,7 @@
             children:
               molecule:
                 vars:
+                  beszel_hub_address: "{{ beszel_hub_address | default('localhost') }}"
                   beszel_public_key: "{{ beszel_hub_public_key_resp.json.key }}"
                   beszel_hub_api_token: "{{ beszel_hub_api_token_resp.json.token }}"
                   beszel_hub_user_id: "{{ beszel_hub_user_id }}"

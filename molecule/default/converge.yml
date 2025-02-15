@@ -8,7 +8,7 @@
     - name: Converge | Add Beszel binary agent to Beszel Hub
       delegate_to: localhost
       ansible.builtin.uri:
-        url: http://localhost:8090/api/collections/systems/records
+        url: "http://{{ beszel_hub_address }}:8090/api/collections/systems/records"
         method: POST
         headers:
           Authorization: "{{ beszel_hub_api_token }}"
