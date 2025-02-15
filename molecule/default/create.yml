@@ -18,6 +18,12 @@
         project_src: ../
         state: present
 
+    - command: docker ps -a
+      register: debug_docker
+
+    - debug:
+        var: debug_docker
+
     - name: Create | Create the initial Beszel Hub user
       ansible.builtin.uri:
         url: "http://{{ beszel_hub_address | default('localhost') }}:8090/api/beszel/create-user"
