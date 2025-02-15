@@ -19,5 +19,3 @@ jobs:
         uses: gofrolist/molecule-action@v2
         with:
           molecule_args: --all
-        env:
-          GITHUB_ACTION: true

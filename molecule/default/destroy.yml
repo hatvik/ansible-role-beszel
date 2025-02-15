@@ -15,7 +15,7 @@
   gather_facts: false
   tasks:
     - name: Destroy | Stop Beszel Hub Docker Compose Stack
-      when: not lookup('ansible.builtin.env', 'GITHUB_ACTION', default=False) | bool
+      when: not lookup('ansible.builtin.env', 'GITHUB_ACTIONS', default=False) | bool
       community.docker.docker_compose_v2:
         project_src: ../
         remove_volumes: true

@@ -10,7 +10,7 @@
           molecule: {}
   pre_tasks:
     - name: GitHub Action Tasks
-      when: not lookup('ansible.builtin.env', 'GITHUB_ACTION', default=False) | bool
+      when: not lookup('ansible.builtin.env', 'GITHUB_ACTIONS', default=False) | bool
       block:
         - name: Create | Start Beszel Hub Docker Compose Stack
           community.docker.docker_compose_v2:
