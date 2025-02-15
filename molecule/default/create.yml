@@ -9,6 +9,17 @@
         children:
           molecule: {}
   tasks:
+    - name: GitHub Action tasks
+      when: lookup('ansible.builtin.env', 'GH_ACTION', default=False) | bool
+      block:
+        - name: Create | Update apt cache
+          ansible.builtin.apt:
+            update_cache: true
+
+        - name: Create | Install Docker Compose plugin inside GitHub Action
+          ansible.builtin.apt:
+            name: docker-compose-plugin
+
     - name: Create | Start Beszel Hub Docker Compose Stack
       community.docker.docker_compose_v2:
         project_src: ../
