@@ -1,15 +1,23 @@
+---
 name: Molecule
 on: [pull_request]
 jobs:
   build:
     name: Molecule
     runs-on: ubuntu-latest
+    services:
+      beszel:
+        image: docker.io/henrygd/beszel:0.9.1
+        ports:
+          - 8090:8090
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           path: "${{ github.repository }}"
-      - uses: gofrolist/molecule-action@v2
+      - name: Molecule
+        uses: gofrolist/molecule-action@v2
         with:
           molecule_args: --all
         env:
-          GH_ACTION: true
+          GITHUB_ACTION: true

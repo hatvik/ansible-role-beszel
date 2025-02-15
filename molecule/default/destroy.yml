@@ -1,8 +1,4 @@
 ---
-- name: Include GitHub Action Tasks
-  when: lookup('ansible.builtin.env', 'GH_ACTION', default=False) | bool
-  ansible.builtin.import_playbook: gh_action.yml
-
 - name: Destroy
   hosts: molecule
   gather_facts: false
@@ -19,6 +15,7 @@
   gather_facts: false
   tasks:
     - name: Destroy | Stop Beszel Hub Docker Compose Stack
+      when: not lookup('ansible.builtin.env', 'GITHUB_ACTION', default=False) | bool
       community.docker.docker_compose_v2:
         project_src: ../
         remove_volumes: true

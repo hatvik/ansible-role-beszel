@@ -1,8 +1,4 @@
 ---
-- name: Include GitHub Action Tasks
-  when: lookup('ansible.builtin.env', 'GH_ACTION', default=False) | bool
-  ansible.builtin.import_playbook: gh_action.yml
-
 - name: Create
   hosts: localhost
   gather_facts: false
@@ -12,18 +8,19 @@
         hosts: {}
         children:
           molecule: {}
+  pre_tasks:
+    - name: GitHub Action Tasks
+      when: not lookup('ansible.builtin.env', 'GITHUB_ACTION', default=False) | bool
+      block:
+        - name: Create | Start Beszel Hub Docker Compose Stack
+          community.docker.docker_compose_v2:
+            project_src: ../
+            state: present
+
+        - name: Set beszel_hub_address
+          ansible.builtin.set_fact:
+            beszel_hub_address: beszel
   tasks:
-    - name: Create | Start Beszel Hub Docker Compose Stack
-      community.docker.docker_compose_v2:
-        project_src: ../
-        state: present
-
-    - command: docker ps -a
-      register: debug_docker
-
-    - debug:
-        var: debug_docker
-
     - name: Create | Create the initial Beszel Hub user
       ansible.builtin.uri:
         url: "http://{{ beszel_hub_address | default('localhost') }}:8090/api/beszel/create-user"
