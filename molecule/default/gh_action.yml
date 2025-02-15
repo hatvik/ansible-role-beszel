@@ -1,7 +1,6 @@
 ---
 - name: GitHub Action Tasks
   hosts: localhost
-  gather_facts: false
   tasks:
     - name: Ensure /etc/apt/keyrings/ exists
       ansible.builtin.file:
