@@ -1,0 +1,12 @@
+---
+- name: GitHub Action Tasks
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install Docker Compose plugin inside GitHub Action
+      ansible.builtin.apt:
+        name: docker-compose-plugin
