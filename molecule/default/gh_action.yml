@@ -13,7 +13,6 @@
       ansible.builtin.get_url:
         url: https://download.docker.com/linux/ubuntu/gpg
         dest: /etc/apt/keyrings/docker.asc
-        state: present
         mode: "0644"
 
     - name: Create Docker Apt Repository
