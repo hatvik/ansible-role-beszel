@@ -20,4 +20,4 @@ beszel_args: ""
 # Enable the Beszel binary agent systemd service on boot
 beszel_service_enabled: true
 # State of the Beszel binary agent systemd service
-beszel_service_state: started
+beszel_service_state: restarted
