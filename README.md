@@ -76,7 +76,7 @@ This role depends on a precompiled binary published on GitHub at [henrygd/beszel
 
 ## License 📝
 
-[LICENSE](LICENSE).
+[LICENSE](LICENSE)
 
 ## Contributors
 
