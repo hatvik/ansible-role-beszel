@@ -20,11 +20,18 @@
 
 - name: beszel_present | Download Beszel binary agent tarball
   ansible.builtin.get_url:
-    url: "https://github.com/henrygd/beszel/releases/{{ beszel_version }}/download/beszel-agent_linux_{{ beszel_architecture | trim }}.tar.gz" # noqa yaml[line-length]
+    url: |
+      {% if beszel_version == 'latest' %}
+        https://github.com/henrygd/beszel/releases/{{ beszel_version }}/download/beszel-agent_linux_{{ beszel_architecture | trim }}.tar.gz
+      {% else %}
+        https://github.com/henrygd/beszel/releases/download/{{ beszel_version }}/beszel-agent_linux_{{ beszel_architecture | trim }}.tar.gz
+      {% endif %}
     dest: /tmp/beszel-agent.tar.gz
+    force: true
     mode: u=rw,g=,o=
 
 - name: beszel_present | Extract Beszel binary agent tarball
+  notify: Restart Beszel binary agent systemd service
   ansible.builtin.unarchive:
     src: /tmp/beszel-agent.tar.gz
     dest: "{{ beszel_install_dir }}"
