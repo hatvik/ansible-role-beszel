@@ -54,7 +54,7 @@ beszel_service_enabled: true
 Enable the Beszel binary agent systemd service on boot.
 
 ```yaml
-beszel_service_state: restarted
+beszel_service_state: started
 ```
 
 State of the Beszel binary agent systemd service.
