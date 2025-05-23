@@ -48,6 +48,12 @@ beszel_args: ""
 Custom arguments for the Beszel binary agent.
 
 ```yaml
+beszel_extra_filesystems: "sdb1,sdc1,mmcblk0,/mnt/network-share"
+```
+
+Adds EXTRA_FILESYSTEMS: to the Config.   Pass additional file systems in to chart details.
+
+```yaml
 beszel_service_enabled: true
 ```
 
