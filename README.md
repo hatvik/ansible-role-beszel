@@ -94,3 +94,5 @@ This role depends on a precompiled binary published on GitHub at [henrygd/beszel
 [dbrennand](https://github.com/dbrennand)
 
 [stegmatze](https://github.com/stegmatze)
+
+[crzykidd](https://github.com/crzykidd)
