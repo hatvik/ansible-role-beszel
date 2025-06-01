@@ -20,3 +20,5 @@ platforms:
       - 45876
     networks:
       - name: molecule_beszel
+scenario:
+  name: default
