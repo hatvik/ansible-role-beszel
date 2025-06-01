@@ -7,8 +7,8 @@ Wants=network-online.target
 ExecStart={{ beszel_install_dir }}/beszel-agent {{ beszel_args | trim }}
 Environment="PORT={{ beszel_port }}"
 Environment="KEY={{ beszel_public_key }}"
-{% if beszel_extra_filesystems | default('') | trim != '' %}
-Environment="EXTRA_FILESYSTEMS={{ beszel_extra_filesystems | trim }}"
+{% if beszel_extra_filesystems %}
+Environment="EXTRA_FILESYSTEMS={{ beszel_extra_filesystems | join(',') }}"
 {% endif %}
 Restart=on-failure
 RestartSec=5

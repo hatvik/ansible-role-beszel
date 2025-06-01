@@ -48,10 +48,15 @@ beszel_args: ""
 Custom arguments for the Beszel binary agent.
 
 ```yaml
-beszel_extra_filesystems: "sdb1,sdc1,mmcblk0,/mnt/network-share"
+beszel_extra_filesystems: []
+beszel_extra_filesystems:
+  - sdb1
+  - sdc1
+  - mmcblk0
+  - /mnt/network-share
 ```
 
-Adds EXTRA_FILESYSTEMS: to the Config.   Pass additional file systems in to chart details.
+Extra filesystems to be monitored by the Beszel binary agent. Configures the EXTRA_FILESYSTEMS environment variable in the agent systemd unit file.
 
 ```yaml
 beszel_service_enabled: true
