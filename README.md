@@ -72,7 +72,7 @@ State of the Beszel binary agent systemd service.
 
 ## Dependencies
 
-This role depends on a precompiled binary published on GitHub at [henrygd/beszel](https://github.com/henrygd/beszel/releases/tag/v0.9.1)
+This role depends on a precompiled binary published on GitHub at [henrygd/beszel](https://github.com/henrygd/beszel/releases)
 
 ## Example Playbook
 
