@@ -56,7 +56,7 @@ beszel_extra_filesystems:
   - /mnt/network-share
 ```
 
-Extra filesystems to be monitored by the Beszel binary agent. Configures the EXTRA_FILESYSTEMS environment variable in the agent systemd unit file.
+Extra filesystems to be monitored by the Beszel binary agent. Configures the [EXTRA_FILESYSTEMS](https://beszel.dev/guide/additional-disks#binary-agent) environment variable in the agent systemd unit file.
 
 ```yaml
 beszel_service_enabled: true
