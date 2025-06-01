@@ -48,6 +48,17 @@ beszel_args: ""
 Custom arguments for the Beszel binary agent.
 
 ```yaml
+beszel_extra_filesystems: []
+beszel_extra_filesystems:
+  - sdb1
+  - sdc1
+  - mmcblk0
+  - /mnt/network-share
+```
+
+Extra filesystems to be monitored by the Beszel binary agent. Configures the [EXTRA_FILESYSTEMS](https://beszel.dev/guide/additional-disks#binary-agent) environment variable in the agent systemd unit file.
+
+```yaml
 beszel_service_enabled: true
 ```
 
@@ -61,7 +72,7 @@ State of the Beszel binary agent systemd service.
 
 ## Dependencies
 
-This role depends on a precompiled binary published on GitHub at [henrygd/beszel](https://github.com/henrygd/beszel/releases/tag/v0.9.1)
+This role depends on a precompiled binary published on GitHub at [henrygd/beszel](https://github.com/henrygd/beszel/releases)
 
 ## Example Playbook
 
@@ -83,3 +94,5 @@ This role depends on a precompiled binary published on GitHub at [henrygd/beszel
 [dbrennand](https://github.com/dbrennand)
 
 [stegmatze](https://github.com/stegmatze)
+
+[crzykidd](https://github.com/crzykidd)
