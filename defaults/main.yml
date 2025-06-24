@@ -15,6 +15,8 @@ beszel_port: 45876
 beszel_public_key: ""
 # Directory to install the Beszel binary agent into
 beszel_install_dir: /usr/local/bin
+# Name of the user to create and run the Beszel binary agent as
+beszel_user: beszel
 # Custom arguments for the Beszel binary agent
 beszel_args: ""
 # Enable the Beszel binary agent systemd service on boot

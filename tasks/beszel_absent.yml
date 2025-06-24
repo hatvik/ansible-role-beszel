@@ -10,6 +10,12 @@
     path: /etc/systemd/system/beszel-agent.service
     state: absent
 
+- name: beszel_absent | Remove user for the Beszel binary agent
+  ansible.builtin.user:
+    name: "{{ beszel_user }}"
+    shell: /sbin/nologin
+    state: absent
+
 - name: beszel_absent | Remove Beszel binary agent
   ansible.builtin.file:
     path: "{{ beszel_install_dir }}/beszel-agent"
