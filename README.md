@@ -39,13 +39,13 @@ Port for the Beszel binary agent to listen on.
 beszel_install_dir: /usr/local/bin
 ```
 
-Name of the user to create and run the Beszel binary agent as.
+Directory to install the Beszel binary agent into.
 
 ```yaml
 beszel_user: beszel
 ```
 
-Directory to install the Beszel binary agent into.
+Name of the user to create and run the Beszel binary agent as.
 
 ```yaml
 beszel_args: ""
