@@ -38,6 +38,12 @@
     mode: u=rwx,g=rx,o=rx
     remote_src: true
 
+- name: beszel_present | Create user for the Beszel binary agent
+  ansible.builtin.user:
+    name: "{{ beszel_user }}"
+    shell: /sbin/nologin
+    state: present
+
 - name: beszel_present | Install Beszel binary agent systemd service
   notify: Reload systemd configuration
   ansible.builtin.template:
