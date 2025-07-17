@@ -54,7 +54,6 @@ beszel_args: ""
 Custom arguments for the Beszel binary agent.
 
 ```yaml
-beszel_extra_filesystems: []
 beszel_extra_filesystems:
   - sdb1
   - sdc1
@@ -86,9 +85,8 @@ This role depends on a precompiled binary published on GitHub at [henrygd/beszel
 - hosts: all
   roles:
     - role: dbrennand.beszel
-      vars:
-        beszel_public_key: "<Public key for Beszel hub>"
-
+  vars:
+    beszel_public_key: "<Public key for Beszel hub>"
 ```
 
 ## License 📝
